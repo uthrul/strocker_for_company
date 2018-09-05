@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Stocker</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <meta name="viewport" content="width=device-width, initial-sacle=1">
+  </head>
+
+  <body>
+    <%= render 'home/navbar' %>
+
+    <div class="container">
+      <%= render 'home/flash'%>
+      <%= yield %>
+    </div>
+
+  </body>
+</html>

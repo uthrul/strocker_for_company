@@ -1,0 +1,55 @@
+
+<h3>My Stocks</h3>
+
+<table class="table table-striped table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>Company Name</th>
+      <th>Ticker</th>
+      <th> Sector</th>
+      <th> Per Ratio </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stocks.each do |stock| %>
+      <% if stock.user_id == current_user.id %>
+        <% begin %>
+            <% @stock_quote = StockQuote::Stock.quote(stock.ticker)%> 
+        <% rescue StandardError %>
+            <tr>
+              <td><%= link_to "Error", stock %> </td>
+              <td><%= stock.ticker %></td>
+              <td><%= "Error" %></td>
+              <td><%= "Error" %></td>
+          <% next %>
+        <%end%>
+          
+        <tr>
+          <td><%= link_to @stock_quote.company_name, stock %></td>
+          <td><%= stock.ticker %></td>
+          <td><%= @stock_quote.sector %></td>
+          <td><%= @stock_quote.pe_ratio %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<br/>
+
+<%= link_to 'New Stock', new_stock_path,  class: "btn btn-default"%>
+
+<br/><br/>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Stock Quote Lookup</h3>
+  </div>
+  <div class="panel-body">
+    <%= form_tag root_path, :method => 'POST' do %>
+      <%= text_field_tag 'id', nil, placeholder: 'enter Company ticker symbol', size: 50%>
+      <%= submit_tag 'Lookup stock quote', class: "btn btn-default"%>
+  <% end %>
+  <br/>
+  </div>
+</div>

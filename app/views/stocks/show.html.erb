@@ -1,0 +1,40 @@
+<% begin %>
+  <% @stock_quote = StockQuote::Stock.quote(@stock.ticker)%> 
+<% rescue StandardError %>
+  HELLO
+<% end %>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><strong><%= @stock_quote.company_name%> - <%= @stock_quote.symbol %></h3></strong>
+  </div>
+  <div class="panel-body">
+    <div class="col-md-4">
+      <h1><%= @stock_quote.sector%></h1><br/>
+
+      <strong>Current Ask : </strong><%= @stock_quote.latest_price %><br/>
+      <strong>Earnings Per Share : </strong><%= @stock_quote.pe_ratio%><br/>
+      <strong>Price/Earning Ratio : </strong><%= @stock_quote.delayed_price%><br/>
+      <strong>Market Cap : </strong><%= @stock_quote.market_cap%><br/>
+      <strong>Stock Open : </strong><%= @stock_quote.open%><br/>
+      <strong>Year High : </strong><%= @stock_quote.week52_high%><br/>
+      <strong>Year Low : </strong><%= @stock_quote.week52_low%><br/>
+    </div>
+
+    <div class="col-md-8"><br/><br/><br/><br/>
+      <p align="justify">
+        <%= @stock_quote.attribution %> ||
+        <%= @stock_quote.attribution %> ||
+        <%= @stock_quote.attribution %> ||
+      </p>
+    </div>
+  </div>
+  <div class="panel-footer">
+      <%= link_to 'Edit', edit_stock_path(@stock)%> |
+      <%= link_to 'Remove From Stock ', stock_path(@stock), method: :delete, data: { confirm: 'Are you sure?' } %> |
+      <%= link_to 'Back', stocks_path %> |
+    </div>
+</div>
+
+
+

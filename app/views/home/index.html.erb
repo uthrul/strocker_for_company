@@ -1,0 +1,28 @@
+<%= form_tag root_path, :method => 'POST' do %>
+    <%= text_field_tag 'id', nil, placeholder: 'enter Company ticker symbol', size: 50%>
+    <%= submit_tag 'Lookup stock quote' %>
+<% end %>
+
+<br/><br/>
+
+<% if @stock %>
+
+    <strong>Company Name : </strong><%= @stock.company_name%> - <%= @stock.symbol %><br/>
+    <strong>Sector : </strong><%= @stock.sector%><br/>
+    <strong>Attribution : </strong><%= @stock.attribution%><br/>
+    <strong>Current Ask : </strong><%= @stock.latest_price %><br/>
+    <strong>Earnings Per Share : </strong><%= @stock.pe_ratio%><br/>
+    <strong>Price/Earning Ratio : </strong><%= @stock.delayed_price%><br/>
+    <strong>Market Cap : </strong><%= @stock.market_cap%><br/>
+    <strong>Stock Open : </strong><%= @stock.open%><br/>
+    <strong>Year High : </strong><%= @stock.week52_high%><br/>
+    <strong>Year Low : </strong><%= @stock.week52_low%><br/>
+
+
+<% elsif @nothing %>
+    <%= @nothing %>
+<% end %>
+
+<% if @error %>
+    <%= @error %>
+<% end %>
